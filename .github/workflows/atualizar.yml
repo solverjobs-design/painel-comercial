@@ -1,0 +1,43 @@
+name: Atualizar painel
+on:
+  schedule:
+    - cron: "0 9 * * *"        # todo dia 06:00 (Brasilia) = 09:00 UTC
+  workflow_dispatch:           # botao "Run workflow" para atualizar na hora
+  push:
+    branches: [main]
+concurrency:
+  group: atualizar-painel
+  cancel-in-progress: false
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Gerar o painel a partir da planilha
+        env:
+          PLANILHA_URL: ${{ secrets.PLANILHA_URL }}
+        run: python gerar.py
+      - name: Guardar historico (somente contagens por etapa, sem nomes de clientes)
+        run: |
+          git config user.name "painel-bot"
+          git config user.email "painel-bot@users.noreply.github.com"
+          git add historico.json
+          git diff --cached --quiet || (git commit -m "historico do painel [skip ci]" && git push)
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
