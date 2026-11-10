@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta http-equiv="refresh" content="300"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel Comercial · Dinâmica Alojamentos</title>
+<style>
+:root{--bg:#0e1014;--card:#171a21;--line:#262a33;--tx:#f2f3f5;--mut:#9aa0ab;--acc:#f26b21;
+--s1:#d6204a;--s2:#c99a0a;--s3:#2b8bd6;--s4:#e8631a;--s5:#1f9d55;--s6:#0f7a3f;--bad:#ef5350;--ok:#3ecf6e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:'Segoe UI',Roboto,Arial,sans-serif;font-size:14px}
+.cond{font-family:Oswald,'Arial Narrow','Roboto Condensed',Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+header{padding:22px 32px 0;background:#13161c;border-bottom:3px solid var(--acc)}
+.top{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.kick{color:var(--acc);font-size:12px;letter-spacing:.2em;font-weight:700}
+h1{margin:4px 0 6px;font-size:36px;letter-spacing:.02em}
+.sub{color:var(--mut);max-width:820px;line-height:1.45}
+.upd{color:var(--mut);display:flex;align-items:center;gap:8px;white-space:nowrap}.dot{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+nav{display:flex;gap:26px;margin-top:18px;overflow-x:auto}
+nav button{background:none;border:0;border-bottom:3px solid transparent;color:var(--mut);padding:10px 0 12px;font:700 13px Oswald,'Arial Narrow',sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-bottom:-3px}
+nav button.on{color:#fff;border-color:var(--acc)}
+main{padding:24px 32px 60px;max-width:1500px;margin:auto}
+section{display:none}section.on{display:block}
+h2{font-size:24px;margin:6px 0 4px;padding-left:12px;border-left:4px solid var(--acc)}
+.lead{color:var(--mut);margin:0 0 18px;line-height:1.45}
+.grid{display:grid;gap:14px}.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card.hl{border-left:4px solid var(--acc)}
+.lab{font:700 12px Oswald,'Arial Narrow',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#c3c7cf}
+.big{font:700 46px/1.1 Oswald,'Arial Narrow',sans-serif;margin:10px 0 4px}.big.sm{font-size:36px}
+.note{color:var(--mut);font-size:13px;line-height:1.4}
+.card h3{margin:0 0 4px;font-size:16px}.card .note{margin-bottom:12px}
+.bar{display:flex;align-items:center;gap:10px;margin:7px 0}.bar .n{width:150px;font-size:13px;color:#dfe2e7}
+.bar .t{flex:1;background:#20242d;border-radius:5px;height:22px;overflow:hidden}.bar .f{height:100%;border-radius:5px}
+.bar .v{width:92px;text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
+table{width:100%;border-collapse:collapse}th{font:700 11px Oswald,'Arial Narrow',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+.mut{color:var(--mut)}.empty{color:#5d6370}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.chips{display:flex;gap:6px;background:#1b1e26;padding:5px;border-radius:10px;flex-wrap:wrap}
+.chip{border:0;background:none;color:#cfd3da;padding:7px 12px;border-radius:7px;cursor:pointer;font-size:13px}.chip.on{background:#f2f3f5;color:#111;font-weight:600}
+input[type=search]{background:#1b1e26;border:1px solid var(--line);color:var(--tx);padding:9px 12px;border-radius:9px;min-width:240px}
+.alert{border-left:4px solid var(--s2);background:#1e1b12;padding:10px 14px;border-radius:8px;margin:8px 0;color:#e8dfc4}
+.stage-h{display:flex;align-items:center;gap:10px;margin:22px 0 8px}.stage-h b{font:700 17px Oswald,'Arial Narrow',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700}
+@media(max-width:700px){header,main{padding-left:14px;padding-right:14px}.bar .n{width:100px}}
+.leg{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 10px;font-size:12px;color:#cfd3da}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.fun{display:flex;flex-direction:column;align-items:center;gap:6px}.fun div{height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;min-width:150px}
+svg text{fill:#9aa0ab;font-size:11px}svg .vt{fill:#f2f3f5;font-weight:600}
+</style></head><body>
+<header><div class="top"><div>
+<div class="kick cond">Painel comercial · Farol</div><h1 class="cond">Dinâmica Alojamentos</h1>
+</div>
+<div class="upd"><span class="dot"></span><span id="upd"></span></div></div>
+<nav id="nav"></nav></header>
+<main>
+<section id="resumo"></section><section id="funil"></section><section id="acoes"></section><section id="entradas"></section><section id="oport"></section><section id="tend"></section><section id="perdidos"></section><section id="criterios"></section>
+</main>
+<script>
+const D=__DATA__;
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString('pt-BR');
+const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const ST=D.etapas, byId=Object.fromEntries(ST.map(e=>[e.id,e]));
+$('#upd').textContent='Dados atualizados em '+D.gerado;
+const tabs=[['resumo','Resumo'],['funil','Funil'],['acoes','Próximas ações'],['entradas','Entradas'],['oport','Oportunidades'],['tend','Tendências'],['perdidos','Perdidos'],['criterios','Critérios']];
+$('#nav').innerHTML=tabs.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join('');
+function go(t){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));history.replaceState(null,'','#'+t)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+const k=D.kpi;
+const kpi=(l,v,n,hl)=>`<div class="card ${hl?'hl':''}"><div class="lab">${l}</div><div class="big">${v}</div><div class="note">${n}</div></div>`;
+const bars=(rows,max,unit)=>rows.map(r=>`<div class="bar"><div class="n">${r.n}</div><div class="t"><div class="f" style="width:${max?Math.max(r.v/max*100,r.v?2:0):0}%;background:${r.c}"></div></div><div class="v">${r.v}${unit||''}</div></div>`).join('');
+const tag=e=>`<span class="tag" style="background:${e.cor}">${e.id}. ${e.nome}</span>`;
+// RESUMO
+(function(){
+ const mx=Math.max(...ST.map(e=>e.n)), mv=Math.max(...ST.map(e=>e.vagas));
+ let h=`<h2 class="cond">Resumo executivo</h2><p class="lead">Posição da planilha em ${D.gerado}. Valores em número de clientes (linhas) e pessoas/vagas informadas.</p><div class="grid g3">
+ ${kpi('Oportunidades em negociação (etapas 1 a 4)',k.neg_n,'clientes entre solicitação, orçamento, visitação e contrato',true)}
+ ${kpi('Pessoas em negociação',fmt(k.neg_vagas),'soma das pessoas informadas nas etapas 1 a 4')}
+ ${kpi('Em contrato / aditivo',k.contr_n,'quase fechando · '+fmt(k.contr_vagas)+' pessoas',true)}
+ ${kpi('Check-in já realizados',k.chk_n,fmt(k.chk_vagas)+' pessoas em operação')}
+ ${kpi('Clientes no radar',k.radar_n,k.radar_sem+' ainda sem dados de pessoas/prazo')}
+ ${kpi('Conversão (fechados ÷ fechados + perdidos)',k.conv+'%',k.fech_n+' fechados · '+k.perd_n+' perdidos')}
+ </div><div class="grid g2" style="margin-top:14px">
+ <div class="card"><h3>Clientes por etapa</h3><div class="note">Quantos clientes estão em cada etapa do funil.</div>${bars(ST.map(e=>({n:e.id+'. '+e.nome,v:e.n,c:e.cor})),mx)}</div>
+ <div class="card"><h3>Pessoas por etapa</h3><div class="note">Soma de pessoas informadas (valores em texto são lidos; veja Critérios).</div>${bars(ST.map(e=>({n:e.id+'. '+e.nome,v:e.vagas,c:e.cor})),mv)}</div></div>`;
+ if(D.alertas.length) h+=`<h2 class="cond" style="margin-top:28px">Pontos de atenção</h2><p class="lead">Gerado automaticamente a cada atualização.</p>`+D.alertas.map(a=>`<div class="alert">${esc(a)}</div>`).join('');
+ $('#resumo').innerHTML=h;
+})();
+// FUNIL
+(function(){
+ let sel='todas',q='';
+ const el=$('#funil');
+ el.innerHTML=`<h2 class="cond">Funil por etapa</h2><p class="lead">Todos os clientes da planilha, etapa por etapa.</p>
+ <div class="tools"><div class="chips" id="fch"></div><input type="search" id="fq" placeholder="Buscar cliente ou local"></div><div id="fb"></div>`;
+ $('#fch').innerHTML=[['todas','Todas'],...ST.map(e=>[String(e.id),e.id+'. '+e.nome])].map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-c="${c[0]}">${c[1]}</button>`).join('');
+ function draw(){
+  document.querySelectorAll('#fch .chip').forEach(b=>b.classList.toggle('on',b.dataset.c===sel));
+  let h='';
+  ST.filter(e=>sel==='todas'||String(e.id)===sel).forEach(e=>{
+   const rows=e.linhas.filter(r=>!q||(r.cliente+' '+r.local+' '+r.acao).toLowerCase().includes(q));
+   h+=`<div class="stage-h"><span class="num" style="background:${e.cor}">${e.id}</span><b>${e.nome}</b><span class="mut">${rows.length} cliente(s) · ${fmt(rows.reduce((a,r)=>a+(r.dup?0:r.pessoas||0),0))} pessoas</span></div>
+   <div class="card" style="padding:6px 10px"><table><tr><th>Cliente</th><th>Pessoas</th><th>Permanência</th><th>Local</th><th>Entrada</th><th>Ação / obs.</th></tr>`+
+   (rows.length?rows.map(r=>`<tr><td>${esc(r.cliente)}${r.dup?' <span class="tag" style="background:#6b5b1f">repetido</span>':''}</td><td>${esc(r.qtd)||'<span class=empty>—</span>'}</td><td>${esc(r.tempo)||'<span class=empty>—</span>'}</td><td>${esc(r.local)||'<span class=empty>—</span>'}</td><td>${esc(r.data)||'<span class=empty>—</span>'}</td><td>${esc(r.acao)||'<span class=empty>—</span>'}</td></tr>`).join(''):`<tr><td colspan=6 class="mut">Sem registros no momento.</td></tr>`)+`</table></div>`;
+  });
+  $('#fb').innerHTML=h;
+ }
+ $('#fch').onclick=e=>{if(e.target.dataset.c){sel=e.target.dataset.c;draw()}};
+ $('#fq').oninput=e=>{q=e.target.value.toLowerCase();draw()};
+ draw();
+})();
+// AÇÕES
+(function(){
+ const items=[];ST.forEach(e=>e.linhas.forEach(r=>{if(r.acao)items.push({e,r})}));
+ D.tarefas.forEach(t=>items.push({e:null,r:t}));
+ $('#acoes').innerHTML=`<h2 class="cond">Próximas ações</h2><p class="lead">Tudo o que está escrito na coluna “Ação” da planilha: ${items.length} item(ns). Quem é o responsável aparece no próprio texto.</p>
+ <div class="card" style="padding:6px 10px"><table><tr><th>Etapa</th><th>Cliente</th><th>Pessoas</th><th>Ação</th></tr>${items.map(({e,r})=>`<tr><td>${e?tag(e):'<span class="tag" style="background:#555">Tarefa</span>'}</td><td>${esc(r.cliente)}</td><td>${esc(r.qtd)||'<span class=empty>—</span>'}</td><td>${esc(r.acao)}</td></tr>`).join('')}</table></div>`;
+})();
+// ENTRADAS
+(function(){
+ const L=[];ST.forEach(e=>e.linhas.forEach(r=>{if(r.data_iso)L.push({e,r})}));
+ L.sort((a,b)=>a.r.data_iso.localeCompare(b.r.data_iso));
+ const hoje=D.hoje_iso;
+ const row=({e,r})=>`<tr><td>${esc(r.data)}</td><td>${tag(e)}</td><td>${esc(r.cliente)}</td><td>${esc(r.qtd)||'—'}</td><td>${esc(r.local)||'—'}</td></tr>`;
+ const fut=L.filter(x=>x.r.data_iso>=hoje), pas=L.filter(x=>x.r.data_iso<hoje);
+ const sem=[];ST.forEach(e=>{if(e.id>=2&&e.id<=5)e.linhas.forEach(r=>{if(!r.data_iso)sem.push({e,r})})});
+ const t=(rows,h)=>`<div class="card" style="padding:6px 10px"><table><tr><th>Data</th><th>Etapa</th><th>Cliente</th><th>Pessoas</th><th>Local</th></tr>${rows.length?rows.map(row).join(''):'<tr><td colspan=5 class=mut>Nenhuma.</td></tr>'}</table></div>`;
+ $('#entradas').innerHTML=`<h2 class="cond">Entradas previstas</h2><p class="lead">Datas lidas em formato de data na planilha. Datas escritas em texto (“Novembro”, “fev/27”, “Não informado”) não entram aqui.</p>
+ <div class="stage-h"><b>A partir de hoje</b><span class="mut">${fut.length}</span></div>${t(fut)}
+ <div class="stage-h"><b>Datas já passadas (conferir se entrou ou mudou)</b><span class="mut">${pas.length}</span></div>${t(pas)}
+ <div class="stage-h"><b>Sem data definida (etapas 2 a 5)</b><span class="mut">${sem.length}</span></div><div class="card" style="padding:6px 10px"><table><tr><th>Etapa</th><th>Cliente</th><th>Pessoas</th><th>Entrada informada</th></tr>${sem.map(({e,r})=>`<tr><td>${tag(e)}</td><td>${esc(r.cliente)}</td><td>${esc(r.qtd)||'—'}</td><td>${esc(r.data)||'<span class=empty>—</span>'}</td></tr>`).join('')}</table></div>`;
+})();
+// OPORTUNIDADES
+(function(){
+ const O=D.oportunidades;
+ window.csv=i=>{const c=O[i];const l=[['Cliente','Etapa','Pessoas','Detalhe'],...c.itens.map(x=>[x.cliente,x.etapa,x.qtd,x.detalhe])];
+  const b=new Blob(['\ufeff'+l.map(r=>r.map(v=>'"'+String(v||'').replace(/"/g,'""')+'"').join(';')).join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='oportunidade_'+(i+1)+'.csv';a.click()};
+ $('#oport').innerHTML=`<h2 class="cond">Oportunidades</h2><p class="lead">Listas de ação geradas a partir da planilha. Cada lista pode ser baixada em CSV. “Pessoas” é a soma das quantidades informadas, não uma previsão de receita (a planilha não tem valores em reais).</p>
+ <div class="grid g3">${O.map((c,i)=>`<div class="card"><h3>${esc(c.titulo)}</h3><div class="big sm">${c.n} <span class="mut" style="font-size:15px">clientes</span></div><div class="note" style="margin:0 0 8px">${fmt(c.pessoas)} pessoas informadas</div><div class="note">${esc(c.texto)}</div>
+ <details><summary style="cursor:pointer;color:#cfd3da">Ver lista</summary><table style="margin-top:8px">${c.itens.length?c.itens.map(x=>`<tr><td><b>${esc(x.cliente)}</b><br><span class="mut">${esc(x.etapa)}${x.qtd?' · '+esc(x.qtd):''}</span>${x.detalhe?'<br>'+esc(x.detalhe):''}</td></tr>`).join(''):'<tr><td class=mut>Nenhum no momento.</td></tr>'}</table></details>
+ <p style="margin:10px 0 0"><button class="chip" onclick="csv(${i})" style="background:#1b1e26">Baixar CSV</button></p></div>`).join('')}</div>`;
+})();
+// TENDÊNCIAS
+(function(){
+ const H=D.historico;
+ let h=`<h2 class="cond">Tendências</h2><p class="lead">Leitura automática da planilha, recalculada a cada atualização. A comparação com leituras anteriores usa o histórico guardado pelo gerador (${H.length} leitura(s) até agora).</p><div class="grid g2">`+
+ D.tendencias.map((t,i)=>`<div class="card"><h3><span class="num" style="display:inline-grid;background:#ef5350;width:22px;height:22px;font-size:12px;margin-right:8px">${i+1}</span>${esc(t.titulo)}</h3><div class="note" style="font-size:14px;color:#dfe2e7">${t.texto}</div></div>`).join('')+'</div>';
+ if(H.length>=2) h+=`<div class="card" style="margin-top:14px;padding:6px 10px"><table><tr><th>Leitura</th>${ST.map(e=>`<th>${e.id}. ${e.nome}</th>`).join('')}<th>Perdidos</th></tr>${H.slice().reverse().map(x=>`<tr><td>${x.hora}</td>${ST.map(e=>`<td>${(x.etapas[e.id]||{}).n??'—'}</td>`).join('')}<td>${x.perdidos}</td></tr>`).join('')}</table></div>`;
+ $('#tend').innerHTML=h;
+})();
+// PERDIDOS
+(function(){
+ const P=D.perdidos, g=P.grupos, mx=Math.max(...g.map(x=>x.n));
+ $('#perdidos').innerHTML=`<h2 class="cond">Clientes perdidos</h2><p class="lead">${P.total} registros. Motivos agrupados por tema para ficar fácil comparar.</p>
+ <div class="grid g2"><div class="card"><h3>Por motivo</h3><div class="note">Quantidade de clientes perdidos em cada grupo de motivo.</div>${bars(g.map(x=>({n:x.grupo,v:x.n,c:'#ef5350'})),mx)}</div>
+ <div class="card"><h3>Pessoas perdidas</h3><div class="note">Soma das pessoas informadas, por grupo.</div>${bars(g.map(x=>({n:x.grupo,v:x.pessoas,c:'#d6204a'})),Math.max(...g.map(x=>x.pessoas)))}</div></div>
+ <div class="card" style="padding:6px 10px;margin-top:14px"><table><tr><th>Motivo</th><th>Grupo</th><th>Cliente</th><th>Pessoas</th></tr>${P.linhas.map(r=>`<tr><td>${esc(r.motivo)}</td><td><span class="tag" style="background:#5a2a2a">${esc(r.grupo)}</span></td><td>${esc(r.cliente)}</td><td>${esc(r.qtd)||'<span class=empty>—</span>'}</td></tr>`).join('')}</table></div>`;
+})();
+// CRITÉRIOS
+$('#criterios').innerHTML=`<h2 class="cond">Critérios</h2><p class="lead">Como o painel lê a planilha.</p><div class="card"><table>
+<tr><td><b>Etapas</b></td><td>Cada bloco da planilha vira uma etapa: 0 Radar, 1 Solicitação de orçamento, 2 Orçamento enviado, 3 Visitação, 4 Contrato/Aditivo, 5 Contrato assinado, 6 Check-in realizados, Perdidos. O painel reconhece o bloco pelo título na coluna B.</td></tr>
+<tr><td><b>Em negociação</b></td><td>Solicitação + Orçamento enviado + Visitação + Contrato/Aditivo. O radar não entra porque ainda não há proposta.</td></tr>
+<tr><td><b>Pessoas</b></td><td>Número lido do texto. “20 operacional” = 20. “60 ope / 20 tec / 10 adm” = 90 (soma). “670 a 800 pessoas” = 670 (menor valor). “Até 50” = 50. Texto sem número (“Validar vagas…”) fica em branco e não soma.</td></tr>
+<tr><td><b>Repetidos</b></td><td>Mesmo cliente e mesma quantidade duas vezes na mesma etapa: aparece marcado “repetido” e é contado uma vez nas somas.</td></tr>
+<tr><td><b>Conversão</b></td><td>(Contrato assinado + Check-in) ÷ (esses + perdidos), em número de linhas. É uma leitura de apoio, não um índice oficial.</td></tr>
+<tr><td><b>Perdidos</b></td><td>Motivos escritos livremente são agrupados por palavras-chave (ex.: “Fechou com…” vira “Fechou com concorrente”). Linha sem motivo herda o motivo da linha de cima.</td></tr>
+<tr><td><b>Oportunidades</b></td><td>Listas montadas por regra: contratos em finalização, contatos pendentes (Ação com “recontato”, “entrar em contato”, “mandar mensagem”), orçamentos sem resposta, clientes sem quantidade, datas de entrada vencidas e perdidos por “sem retorno”.</td></tr>
+<tr><td><b>Histórico</b></td><td>A cada rodada o gerador guarda a contagem por etapa em historico.json (uma leitura por dia). Não apague esse arquivo, é ele que permite comparar semanas e meses.</td></tr>
+<tr><td><b>Atualização</b></td><td>Substitua a planilha na pasta e rode atualizar.bat (ou python gerar_painel.py). O HTML é gerado de novo com a data e hora do momento.</td></tr></table></div>`;
+// GRÁFICOS
+const cidade=l=>{const s=(l||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ if(!s||s.includes('definir')||s.includes('informado')||s=='-')return 'A definir';
+ for(const [k,n] of [['congonhas','Congonhas'],['itabirito','Itabirito'],['mariana','Mariana'],['gipso','Gipso'],['bh','Belo Horizonte'],['cristais','Belo Horizonte'],['consola','Belo Horizonte'],['jk','Belo Horizonte'],['(sp)','São Paulo']])if(s.includes(k))return n;return 'Outros'};
+const legend=a=>`<div class="leg">${a.map(x=>`<span><i style="background:${x.cor}"></i>${esc(x.nome)}</span>`).join('')}</div>`;
+function stackV(labels,series,h){ // colunas empilhadas
+ const W=Math.max(640,labels.length*90),H=h||260,pl=44,pb=30,pt=14,iw=W-pl-10,ih=H-pb-pt;
+ const tot=labels.map((_,i)=>series.reduce((a,s)=>a+s.vals[i],0)),mx=Math.max(1,...tot);
+ const bw=Math.min(46,iw/labels.length*.6);let g='';
+ for(let k=0;k<=4;k++){const y=pt+ih-ih*k/4;g+=`<line x1="${pl}" x2="${W-10}" y1="${y}" y2="${y}" stroke="#262a33"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${fmt(Math.round(mx*k/4))}</text>`}
+ labels.forEach((lb,i)=>{const x=pl+iw/labels.length*(i+.5)-bw/2;let y=pt+ih;
+  series.forEach(s=>{const v=s.vals[i];if(!v)return;const hh=ih*v/mx;y-=hh;g+=`<rect x="${x}" y="${y}" width="${bw}" height="${hh}" fill="${s.cor}" rx="2"><title>${lb} · ${s.nome}: ${fmt(v)}</title></rect>`});
+  if(tot[i])g+=`<text class="vt" x="${x+bw/2}" y="${y-5}" text-anchor="middle">${fmt(tot[i])}</text>`;
+  g+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle">${lb}</text>`});
+ return `<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="max-width:100%;height:auto">${g}</svg></div>`}
+function stackH(rows,series){ // barras horizontais empilhadas
+ const mx=Math.max(1,...rows.map(r=>r.vals.reduce((a,b)=>a+b,0)));
+ return rows.map(r=>{const tt=r.vals.reduce((a,b)=>a+b,0);return `<div class="bar"><div class="n">${esc(r.n)}</div><div class="t" style="display:flex">${series.map((s,i)=>r.vals[i]?`<div title="${s.nome}: ${fmt(r.vals[i])}" style="width:${r.vals[i]/mx*100}%;background:${s.cor};height:100%"></div>`:'').join('')}</div><div class="v">${fmt(tt)}</div></div>`}).join('')}
+function lines(labels,series){
+ const W=700,H=240,pl=36,pb=30,pt=14,iw=W-pl-16,ih=H-pb-pt,mx=Math.max(1,...series.flatMap(s=>s.vals));let g='';
+ for(let k=0;k<=4;k++){const y=pt+ih-ih*k/4;g+=`<line x1="${pl}" x2="${W-10}" y1="${y}" y2="${y}" stroke="#262a33"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${Math.round(mx*k/4)}</text>`}
+ const X=i=>pl+(labels.length>1?iw*i/(labels.length-1):iw/2),Y=v=>pt+ih-ih*v/mx;
+ series.forEach(s=>{if(labels.length>1)g+=`<polyline fill="none" stroke="${s.cor}" stroke-width="2.5" points="${s.vals.map((v,i)=>X(i)+','+Y(v)).join(' ')}"/>`;
+  s.vals.forEach((v,i)=>g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="4" fill="${s.cor}"><title>${labels[i]} · ${s.nome}: ${v}</title></circle>`)});
+ labels.forEach((l,i)=>g+=`<text x="${X(i)}" y="${H-8}" text-anchor="middle">${l}</text>`);
+ return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="max-width:100%;height:auto">${g}</svg>`}
+const E16=ST.filter(e=>e.id>=1);
+// Resumo: funil + cidade
+(function(){
+ const mx=Math.max(...E16.map(e=>e.n));
+ const funil=`<div class="fun">${E16.map(e=>`<div style="background:${e.cor};width:${Math.max(e.n/mx*100,24)}%" title="${e.nome}">${e.id}. ${e.nome} · ${e.n}</div>`).join('')}</div>`;
+ const cid={};E16.forEach(e=>e.linhas.forEach(r=>{if(r.dup)return;const c=cidade(r.local);(cid[c]=cid[c]||{})[e.id]=(cid[c][e.id]||0)+(r.pessoas||0)}));
+ const rows=Object.entries(cid).map(([n,o])=>({n,vals:E16.map(e=>o[e.id]||0)})).sort((a,b)=>b.vals.reduce((x,y)=>x+y,0)-a.vals.reduce((x,y)=>x+y,0));
+ const h=`<h2 class="cond" style="margin-top:28px">Gráficos</h2><div class="grid g2">
+ <div class="card"><h3>Funil de clientes</h3><div class="note">Quantos clientes em cada etapa, da solicitação ao check-in. Passe o mouse para ver o nome.</div>${funil}</div>
+ <div class="card"><h3>Pessoas por cidade e etapa</h3><div class="note">Onde está a demanda (etapas 1 a 6). O local vem da coluna “Local”; vazio ou “A definir” fica em “A definir”.</div>${legend(E16.map(e=>({cor:e.cor,nome:e.id+'. '+e.nome})))}${stackH(rows,E16.map(e=>({cor:e.cor,nome:e.nome})))}</div></div>`;
+ const sec=$('#resumo');const al=sec.querySelector('h2:last-of-type');
+ const idx=sec.innerHTML.indexOf('<h2 class="cond" style="margin-top:28px">Pontos');
+ sec.innerHTML=idx>0?sec.innerHTML.slice(0,idx)+h+sec.innerHTML.slice(idx):sec.innerHTML+h;
+})();
+// Entradas: colunas por mês
+(function(){
+ const m={};ST.forEach(e=>{if(e.id>=0)e.linhas.forEach(r=>{if(r.data_iso&&!r.dup){const k=r.data_iso.slice(0,7);(m[k]=m[k]||{})[e.id]=(m[k][e.id]||0)+(r.pessoas||0)}})});
+ const ks=Object.keys(m).sort();if(!ks.length)return;
+ const lb=k=>['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'][+k.slice(5)-1]+'/'+k.slice(2,4);
+ const used=ST.filter(e=>ks.some(k=>m[k][e.id]));
+ const h=`<div class="card" style="margin-bottom:14px"><h3>Pessoas por mês de entrada</h3><div class="note">Soma das pessoas por mês da data de entrada informada (só datas preenchidas como data), colorida por etapa.</div>${legend(used.map(e=>({cor:e.cor,nome:e.id+'. '+e.nome})))}${stackV(ks.map(lb),used.map(e=>({cor:e.cor,nome:e.nome,vals:ks.map(k=>m[k][e.id]||0)})))}</div>`;
+ const s=$('#entradas');const i=s.innerHTML.indexOf('<div class="stage-h">');s.innerHTML=s.innerHTML.slice(0,i)+h+s.innerHTML.slice(i);
+})();
+// Tendências: evolução
+(function(){
+ const H=D.historico,lbs=H.map(x=>x.hora.slice(0,5));
+ const h=`<div class="card" style="margin-top:14px"><h3>Evolução de clientes por etapa</h3><div class="note">${H.length>1?'Cada ponto é uma leitura do painel.':'Hoje há uma leitura só. A linha aparece a partir da segunda atualização, em outro dia.'}</div>${legend(E16.map(e=>({cor:e.cor,nome:e.id+'. '+e.nome})))}${lines(lbs,E16.map(e=>({cor:e.cor,nome:e.nome,vals:H.map(x=>(x.etapas[e.id]||{}).n||0)})))}</div>`;
+ $('#tend').insertAdjacentHTML('beforeend',h);
+})();
+addEventListener('hashchange',()=>go((location.hash||'#resumo').slice(1)));
+go((location.hash||'#resumo').slice(1)||'resumo');
+</script></body></html>

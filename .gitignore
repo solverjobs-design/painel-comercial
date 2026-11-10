@@ -1,0 +1,4 @@
+site/
+*.xlsx
+*.csv
+__pycache__/
